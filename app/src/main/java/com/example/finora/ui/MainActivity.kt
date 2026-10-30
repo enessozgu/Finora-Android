@@ -14,18 +14,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // ViewBinding bağlantısı
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
 
         // İşlem listesini dikey sırala
         binding.rvTransactions.layoutManager =
             LinearLayoutManager(this)
 
-// Para Gönder
+        // PARA GÖNDER
         binding.btnSendMoney.setOnClickListener {
             Toast.makeText(
                 this,
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-// Fatura Öde
+        // FATURA ÖDE
         binding.btnPayBills.setOnClickListener {
             Toast.makeText(
                 this,
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-// Kartlarım
+        // KARTLARIM
         binding.btnMyCards.setOnClickListener {
             Toast.makeText(
                 this,
@@ -52,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-// Para İste
+        // PARA İSTE
         binding.btnRequestMoney.setOnClickListener {
             Toast.makeText(
                 this,
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-// QR İşlemleri
+        // QR İŞLEMLERİ
         binding.btnQr.setOnClickListener {
             Toast.makeText(
                 this,
@@ -70,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-// İşlem Geçmişi
+        // İŞLEM GEÇMİŞİ
         binding.btnHistory.setOnClickListener {
             Toast.makeText(
                 this,
@@ -79,9 +76,11 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
+        // Dashboard verilerini sunucudan getir
+        getDashboard()
+    }
 
-
-
+    // DASHBOARD API BAĞLANTISI
     private fun getDashboard() {
 
         RetrofitClient.api.getDashboard().enqueue(
@@ -98,11 +97,11 @@ class MainActivity : AppCompatActivity() {
 
                         if (dashboard != null) {
 
-                            // Hesap bakiyesini güncelle.
+                            // Hesap bakiyesini güncelle
                             binding.tvBalance.text =
                                 "${dashboard.balance} ${dashboard.currency}"
 
-                            // API'den gelen işlemleri listele.
+                            // API'den gelen işlemleri listele
                             binding.rvTransactions.adapter =
                                 TransactionAdapter(dashboard.transactions)
                         }
