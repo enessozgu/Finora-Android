@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F6FC"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="22dp">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="#172B55"
+                android:textSize="32sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Para Gönder"
+                android:textColor="#172B55"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- INTRO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Yeni transfer"
+            android:textColor="#172B55"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Alıcı bilgilerini ve göndermek istediğin tutarı gir."
+            android:textColor="#8795AD"
+            android:textSize="14sp" />
+
+        <!-- FORM CARD -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:strokeColor="#E9EDF5"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- IBAN -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alıcı IBAN"
+                    android:textColor="#263653"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etIban"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#CAD5E7"
+                    android:hint="TR00 0000 0000 0000 0000 0000 00"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="32"
+                    android:paddingHorizontal="12dp"
+                    android:singleLine="true"
+                    android:textColor="#172B55"
+                    android:textColorHint="#A0AFC4"
+                    android:textSize="14sp" />
+
+                <!-- RECIPIENT -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="Alıcı adı soyadı"
+                    android:textColor="#263653"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etRecipientName"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#CAD5E7"
+                    android:hint="Ad Soyad"
+                    android:inputType="textCapWords"
+                    android:paddingHorizontal="12dp"
+                    android:singleLine="true"
+                    android:textColor="#172B55"
+                    android:textColorHint="#A0AFC4"
+                    android:textSize="14sp" />
+
+                <!-- AMOUNT -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="Gönderilecek tutar"
+                    android:textColor="#263653"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#CAD5E7"
+                    android:hint="0,00"
+                    android:inputType="numberDecimal"
+                    android:paddingHorizontal="12dp"
+                    android:singleLine="true"
+                    android:textColor="#244FCE"
+                    android:textColorHint="#A0AFC4"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- DESCRIPTION -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:text="Açıklama (isteğe bağlı)"
+                    android:textColor="#263653"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="#CAD5E7"
+                    android:gravity="top"
+                    android:hint="Örn. Kira ödemesi"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="100"
+                    android:padding="12dp"
+                    android:textColor="#172B55"
+                    android:textColorHint="#A0AFC4"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- INFO -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="#E8EEFF"
+            android:padding="16dp"
+            android:text="ⓘ  Transfer bilgilerini onaylamadan önce dikkatlice kontrol et."
+            android:textColor="#315BD4"
+            android:textSize="12sp" />
+
+        <!-- CONTINUE BUTTON -->
+        <!-- DEVAM ET BUTONU -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="26dp"
+            android:text="Devam Et"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="#244FCE"
+            app:cornerRadius="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>

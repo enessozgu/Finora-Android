@@ -1,6 +1,7 @@
 
 package com.example.finora.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,11 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         // PARA GÖNDER
         binding.btnSendMoney.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Para gönderme ekranı yakında!",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(this, SendMoneyActivity::class.java)
+            startActivity(intent)
         }
 
         // FATURA ÖDE
