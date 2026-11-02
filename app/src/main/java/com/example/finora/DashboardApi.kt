@@ -7,13 +7,17 @@ import retrofit2.http.POST
 
 interface DashboardApi {
 
-    // Dashboard verilerini getir
+    // Bakiye ve dashboard bilgileri
     @GET("api/v1/dashboard")
     fun getDashboard(): Call<DashboardDto>
 
-    // Transfer isteği gönder
+    // Transfer kaydet
     @POST("api/v1/transfers")
     fun createTransfer(
         @Body request: TransferRequestDto
     ): Call<TransferResponseDto>
+
+    // PostgreSQL'deki transferleri getir
+    @GET("api/v1/transfers")
+    fun getTransfers(): Call<List<TransferResponseDto>>
 }

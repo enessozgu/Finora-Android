@@ -1,4 +1,3 @@
-
 package com.example.finora.ui
 
 import android.content.Intent
@@ -7,6 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finora.databinding.ActivityMainBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -74,19 +76,28 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
 
-        // Dashboard verilerini sunucudan getir
+        // Bakiye bilgisini getir
         getDashboard()
     }
 
-    // DASHBOARD API BAĞLANTISI
+    // Ekrana her dönüşte işlem listesini yenile
+    override fun onResume() {
+        super.onResume()
+
+        if (::binding.isInitialized) {
+            getTransfers()
+        }
+    }
+
+    // DASHBOARD API
     private fun getDashboard() {
 
         RetrofitClient.api.getDashboard().enqueue(
-            object : retrofit2.Callback<DashboardDto> {
+            object : Callback<DashboardDto> {
 
                 override fun onResponse(
-                    call: retrofit2.Call<DashboardDto>,
-                    response: retrofit2.Response<DashboardDto>
+                    call: Call<DashboardDto>,
+                    response: Response<DashboardDto>
                 ) {
 
                     if (response.isSuccessful) {
@@ -95,33 +106,72 @@ class MainActivity : AppCompatActivity() {
 
                         if (dashboard != null) {
 
-                            // Hesap bakiyesini güncelle
                             binding.tvBalance.text =
                                 "${dashboard.balance} ${dashboard.currency}"
-
-                            // API'den gelen işlemleri listele
-                            binding.rvTransactions.adapter =
-                                TransactionAdapter(dashboard.transactions)
                         }
 
                     } else {
 
                         Toast.makeText(
                             this@MainActivity,
-                            "Sunucu hatası: ${response.code()}",
+                            "Bakiye sunucu hatası: ${response.code()}",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 override fun onFailure(
-                    call: retrofit2.Call<DashboardDto>,
+                    call: Call<DashboardDto>,
                     t: Throwable
                 ) {
 
                     Toast.makeText(
                         this@MainActivity,
-                        "Bağlantı hatası: ${t.message}",
+                        "Bakiye bağlantı hatası: ${t.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        )
+    }
+
+    // POSTGRESQL TRANSFER LİSTESİ
+    private fun getTransfers() {
+
+        RetrofitClient.api.getTransfers().enqueue(
+            object : Callback<List<TransferResponseDto>> {
+
+                override fun onResponse(
+                    call: Call<List<TransferResponseDto>>,
+                    response: Response<List<TransferResponseDto>>
+                ) {
+
+                    if (response.isSuccessful) {
+
+                        val transfers = response.body() ?: emptyList()
+
+                        // Veritabanındaki transferleri göster
+                        binding.rvTransactions.adapter =
+                            TransferAdapter(transfers)
+
+                    } else {
+
+                        Toast.makeText(
+                            this@MainActivity,
+                            "İşlem geçmişi hatası: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<List<TransferResponseDto>>,
+                    t: Throwable
+                ) {
+
+                    Toast.makeText(
+                        this@MainActivity,
+                        "İşlem geçmişi bağlantı hatası: ${t.message}",
                         Toast.LENGTH_LONG
                     ).show()
                 }
